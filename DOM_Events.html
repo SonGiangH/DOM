@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- internal css -->
+    <style rel="stylesheet">
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .italic {
+            font-size: 20px;
+            font-style: italic;
+            color: green;
+        }
+
+        .padding-right {
+            padding-right: 10px;
+        }
+
+        .no-style {
+            list-style-type: none;
+            list-style-position: inside;
+            color: #fff;
+        }
+    </style>
+    <title>HTML DOM Events</title>
+</head>
+<body>
+    <a href="#" 
+        onclick="console.log(this); 
+        this.style.display='none';"
+
+        onmouseover = "changeColor(this)"
+        onmouseout= "changeColorBack(this)"
+        >Click Me
+    </a>
+    
+    <input type="text" id="name" value="" onkeyup="upperCase(this)">
+
+    <button id="submitBtn">Login</button>
+    <script>
+    //   DOM Events hỗ trợ thêm 1 sự kiện vào 1 phần tử HTML, sử dụng hàm callback Events Listener
+    // khi dự kiện diễn ra
+
+    // add hàm changeColor vào sự kiện onMouseOver
+        function changeColor(obj) {
+            obj.style.color ="red";
+        }
+
+        function changeColorBack(obj) {
+            obj.style.color = "green";
+        }
+
+    // add hàm upperCase vào sự kiện onkeyup
+        function upperCase(obj) {
+            let value = obj.value;
+            obj.value = value.toUpperCase();  // hàm toUpperCase của string
+        }
+
+    // Có 2 cách khác để thêm event và Listener thay vì thêm trực tiếp inline trên thẻ
+
+        // DOM
+        let submitBtn = document.getElementById("submitBtn");
+        submitBtn.onclick = function() {
+            alert("Successfully submitted !")
+        }
+
+        // sử dụng hàm addEventListener, bỏ chữ "On" trên tất cả các sự kiện
+        submitBtn.addEventListener("click", function() {
+            alert("Successfully submitted !")
+        })
+    </script>
+</body>
+</html>

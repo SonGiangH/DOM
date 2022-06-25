@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .d-flex {
+            display: flex;            
+        }
+
+        .label {
+            display: inline-block;
+            width: 150px;          
+        }
+
+        .mbot-10 {
+            margin-bottom: 10px;
+        }
+
+        .gender-option {
+            width: 25%;
+            justify-content:space-between
+        }
+    </style>
+    <title>DOM Dynamic Table</title>
+</head>
+<body>
+    <div class="contaier">
+        <!-- Form -->
+        <div class="form-container">
+            <form action="" id="add-user-form">
+                <div class="d-flex mbot-10">
+                    <div class="label">
+                        <label for="">User Name</label>
+                    </div>
+    
+                    <div class="input-area">
+                        <input type="text" id="username" value="" placeholder>
+                    </div>
+                </div>
+                <div class="d-flex mbot-10">
+                    <div class="label">
+                        <label for="">Password</label>
+                    </div>
+                    <input type="password" id="password" value="" placeholder>
+                </div> 
+    
+                <button type="button" id="submit-btn">Add</button>
+            </form>
+        </div>
+        <!-- end of Form -->
+
+        <!-- Table -->
+        <table>
+            <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Password</th>
+                  </tr>
+            </thead>
+
+            <tbody id="body-table">
+                <tr>
+                    <td>JS</td>
+                    <td>123456</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- end of table -->
+    </div>
+
+    <script>
+
+        let submitBtn = document.getElementById("submit-btn");
+        let usernameElement = document.getElementById("username");
+        let passwordElement = document.getElementById("password");
+
+        let jsonObjects = [
+            {
+                name: "Nguyen Van A",
+                password: '123456aA@'
+            },
+            {
+                name: "Tran Van Hoang",
+                password: 'asdfasdf'
+            },
+            {
+                name: ' TechMaster',
+                password: 'alabama'
+            }
+        ];
+
+        function createTR(obj) {
+            // Sử dụng DOM Node để khởi tạo các Element
+            let trElement = document.createElement("tr");
+    
+            let tdElement1 = document.createElement("td");
+            tdElement1.innerHTML = obj.name;
+    
+            let tdElement2 = document.createElement("td");
+            tdElement2.innerHTML = obj.password;
+    
+            trElement.appendChild(tdElement1);
+            trElement.appendChild(tdElement2);
+    
+            let tdBodyElement = document.getElementById("body-table");
+            tdBodyElement.appendChild(trElement);
+        }
+
+        // sử dụng vòng lặp for để khởi tạo DOM Node cho từng thằng trong Json objects
+        for (let i=0; i < jsonObjects.length; i++) {
+                createTR(jsonObjects[i]);         
+        }
+
+        // submit button to add element to table
+        submitBtn.onclick = function(){
+                let usernameValue = usernameElement.value;
+                let passwordValue = passwordElement.value;
+
+                let person = {
+                    name: usernameValue,
+                    password: passwordValue
+                }
+
+                createTR(person);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- internal css -->
+    <style rel="stylesheet">
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .italic {
+            font-size: 20px;
+            font-style: italic;
+            color: green;
+        }
+
+        .padding-right {
+            padding-right: 10px;
+        }
+
+        .no-style {
+            list-style-type: none;
+            list-style-position: inside;
+            color: #fff;
+        }
+    </style>
+    <title>HTML DOM Element</title>
+</head>
+<body>
+    <div id="header">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">HOME</a></li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Copyright by TechMaster</p>
+    </div>
+
+    <script>
+        let aList = document.getElementsByTagName("a");
+
+        for (let i = 0; i < aList.length; i++) {
+            aList[i].style.color = "red"
+            aList[i].style.fontSize="20px"
+            aList[i].style.textDecoration="none"
+        }
+
+        // áp dụng 1 CSS cho 1 thẻ html, sử dụng classList or className (but mostly use classList)
+        let pList = document.getElementsByTagName("p")
+
+        pList[0].classList = "center"
+        pList[0].className = "center"
+        pList[0].setAttribute("class", "center italic");  // muốn bỏ bớt thì chỉ setAttribute lại và remove CSS class đi
+
+        // Using "classList", you can add or remove a class without affecting any others the element may have. 
+        // But if you assign "className", it will wipe out any existing classes while adding the new one 
+        // (or if you assign an empty string it will wipe out all of them)
+
+        let liList = document.getElementsByTagName("li");
+        console.log(liList);
+
+        for ( let i=0; i < liList.length; i++) {
+            liList[i].classList ="no-style padding-right"
+        }
+
+        let ul = document.getElementsByTagName("ul");
+        console.log(ul);
+
+        ul[0].classList = "center"
+
+    </script>
+</body>
+</html>

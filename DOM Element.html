@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML DOM Element</title>
+</head>
+<body>
+    <div id="header">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">HOME</a></li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Copyright by TechMaster</p>
+    </div>
+
+    <script>
+        let divHeader = document.getElementById("header");
+        console.log(divHeader);
+
+        // Tìm tất cả thẻ a, nó sẽ trả về 1 collection (như array) nhưng không thể thêm hay xoá phần tử được
+        let aList = document.getElementsByTagName("a");
+        console.log(aList);
+
+        for (let i = 0; i < aList.length;i++) {
+            aList[i].href ="https://TechMaster.com";
+            aList[i].setAttribute("title", "TechMaster")
+
+            // lấy ra chỉ cần "." để lấy thuộc tính
+            console.log ( aList[i].href);
+            console.log(aList[i].getAttribute("href"));
+
+            // thay đổi thẻ text của a "HOME" 
+            aList[i].innerHTML = "<b>Trung tâm TechMaster </b>"
+
+            // thay đổi thẻ text của a "HOME" dưới dạng text 
+            // aList[i].innerText = "<b>Trung tâm TechMaster </b>"
+        }
+
+        // tìm các thẻ div
+        let divList = document.getElementsByTagName("div");
+        console.log (divList)
+
+        // tìm các thẻ có class name
+        let footerDiv = document.getElementsByClassName("footer")
+        console.log(footerDiv)
+
+        let pList = document.getElementsByTagName("p");
+        console.log(pList)
+
+        // Tìm thẻ div với class là footer
+        let footerDivList = document.querySelectorAll("div.footer");   // querySelector thì chỉ lấy ra thằng đầu tiên
+        console.log(footerDivList);
+
+        let pFooterList = footerDivList[0].getElementsByTagName("p");   // tìm tất cả thẻ p trong footer
+        pFooterList[0].innerHTML = "TechMaster"
+
+
+        
+
+    </script>
+</body>
+</html>

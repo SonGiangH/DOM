@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section3_DOM</title>
+</head>
+
+<body>
+    <div>
+        <form id="form-register">
+            <div>
+                <label>Id:</label>
+                <input type="text" value="" id="id">
+
+            </div>
+            <div>
+                <label>Name: </label>
+                <input type="text" value="" id="name">
+            </div>
+            <div>
+                <label>Age: </label>
+                <input type="text" value="" id="age">
+            </div>
+            <div>
+                <label>Address: </label>
+                <input type="text" value="" id="address" onblur="upperCase(this)">
+            </div>
+            <div>
+                <button type="button" id="submit-bt">REEGISTER</button>
+                <button type="button" id="updateUser">UPDATE-USER</button>
+
+            </div>
+            <div>
+                <label>Searches User: </label>
+                <input type="text" value="" id="searches">
+                <button type="button" id="search-user">Find</button>
+            </div>
+        </form>
+    </div>
+    <div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>AGE</th>
+                    <th>ADDRESS</th>
+                    <th>OPTION</th>
+
+                </tr>
+            </thead>
+            <tbody id="body-table">
+                <tr>
+                    <td>1</td>
+                    <td>Tuan</td>
+                    <td>3</td>
+                    <td>Long Bien</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script>
+            let userObject = [
+                {
+                    id: 2,
+                    name: 'John',
+                    age: 30,
+                    address: '123 Main St'
+                },
+                {
+                    id: 3,
+                    name: 'Nick',
+                    age: 30,
+                    address: '456 Main St'
+                },
+
+            ]
+
+            function createTable(users) {
+                document.getElementById("body-table").innerHTML = ""
+                for (let i = 0; i < users.length; i++) {
+                    createTr(users[i]);
+                }
+            }
+
+            function createTr(user) {
+                let trElement = document.createElement("tr");
+
+                let tdElement1 = document.createElement("td");
+                tdElement1.innerHTML = user.id
+
+                let tdElement2 = document.createElement("td");
+                tdElement2.innerHTML = user.name
+
+                let tdElement3 = document.createElement("td");
+                tdElement3.innerHTML = user.age
+
+                let tdElement4 = document.createElement("td");
+                tdElement4.innerHTML = user.address
+
+                let tdElement5 = document.createElement("td");
+                let button1 = document.createElement("button");
+                let button2 = document.createElement("button");
+                button1.innerHTML = 'DELETE';
+                button2.innerHTML = 'EDIT'
+
+                button1.onclick = function () {
+                    deleteUser(user.id)
+                }
+                button2.onclick = function () {
+
+                    updateUser(user.id)  ///dua gia tri len form
+
+                }
+
+                
+                tdElement5.appendChild(button1);
+                tdElement5.appendChild(button2);
+
+
+                trElement.appendChild(tdElement1)
+                trElement.appendChild(tdElement2)
+                trElement.appendChild(tdElement3)
+                trElement.appendChild(tdElement4)
+                trElement.appendChild(tdElement5)
+
+                // cho vao tbody
+                let tbody = document.getElementById("body-table")
+                tbody.appendChild(trElement)
+            }
+
+            createTable(userObject)
+
+            let submit = document.getElementById("submit-bt")
+            let idEle = document.getElementById("id")
+            let nameEle = document.getElementById("name")
+            let ageEle = document.getElementById("age")
+            let addressEle = document.getElementById("address")
+            let searchUserEleInput = document.getElementById("searches")
+            let searchElebutton = document.getElementById("search-user")
+            let updateUserEle = document.getElementById("updateUser")
+            submit.onclick = function () {
+                let id = idEle.value
+                let name = nameEle.value
+                let age = ageEle.value
+                let address = addressEle.value
+                let user = {
+                    id: id,
+                    name: name,
+                    age: age,
+                    address: address
+                }
+
+                userObject.push(user);
+                createTable(userObject)
+            }
+            searchElebutton.onclick = function () {
+                search()
+            }
+
+            updateUserEle.onclick = function () {
+                let id = idEle.value
+                let name = nameEle.value
+                let age = ageEle.value
+                let address = addressEle.value
+
+                for (let i = 0; i < userObject.length; i++) {
+                    if (userObject[i].id == id) {
+                        userObject[i].name = name;
+                        userObject[i].age = age;
+                        userObject[i].address = address;
+                    }
+
+                }
+                createTable(userObject)
+            }
+
+            function search() {
+                let newArr = []
+                for (let i = 0; i < userObject.length; i++) {
+                    let listUserFound = searchUserEleInput.value
+                    let name = userObject[i].name
+                    let a = name.indexOf(listUserFound) //so sanh co ki tu trung
+                    if (a !== -1) {
+                        newArr.push(userObject[i])
+                    }
+                }
+
+                createTable(newArr)
+            }
+
+            function deleteUser(id) {
+                for (let i = 0; i < userObject.length; i++) {
+                    if (userObject[i].id === id) {
+                        userObject.splice(i, 1);  //splice xoa phan tu trong mang
+                        break;
+                    }
+                }
+                createTable(userObject);
+            }
+            function updateUser(id) {
+                for (let i = 0; i < userObject.length; i++) {
+                    if (userObject[i].id === id) {
+                        let nameU = userObject[i].name;
+                        let ageU = userObject[i].age;
+                        let addressU = userObject[i].address;
+                        let idU = userObject[i].id;
+
+                        nameEle.value = nameU
+                        ageEle.value = ageU
+                        addressEle.value = addressU
+                        idEle.value = idU
+                    }
+                }
+
+            }
+
+        </script>
+
+    </div>
+</body>
+
+</html>
+

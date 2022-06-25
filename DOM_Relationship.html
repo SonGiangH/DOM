@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Relationship</title>
+</head>
+<body>
+    <div id="header">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">HOME</a></li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Copyright by TechMaster</p>
+    </div>
+    <script>
+        // Sử dụng DOM relationship để tìm các phần tử HTML
+        let bodyChildren = document.body.children;
+        console.log(bodyChildren);
+
+        console.log(bodyChildren[0]);
+        console.log(bodyChildren[bodyChildren.length -1]);
+
+        //  sử dụng DOM relationship
+        console.log(document.body.firstElementChild);
+        console.log(document.body.lastElementChild);
+
+
+        // do thằng footer là thằng nextElementSibling của firstElementChild của body (header)
+        let footerDivElement = document.body.firstElementChild.nextElementSibling;
+        console.log(footerDivElement);
+
+        // thằng firstElementChild của footerDivElement là thẻ p
+        footerDivElement.firstElementChild.innerHTML ="Hello JavaMaster";
+
+        let divHeader = document.getElementById("header");
+        console.log(divHeader.parentElement)
+    </script>
+</body>
+</html>

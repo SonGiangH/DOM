@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Form</title>
+    <style>
+        .d-flex {
+            display: flex;            
+        }
+
+        .label {
+            display: inline-block;
+            width: 150px;          
+        }
+
+        .mbot-10 {
+            margin-bottom: 10px;
+        }
+
+        .gender-option {
+            width: 25%;
+            justify-content:space-between
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="form-container">
+        <form action="" id="add-user-form">
+            <div class="d-flex mbot-10">
+                <div class="label">
+                    <label for="">User Name</label>
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="username" value="" placeholder>
+                </div>
+            </div>
+            <div class="d-flex mbot-10">
+                <div class="label">
+                    <label for="">Password</label>
+                </div>
+                <input type="password" id="password" value="" placeholder>
+            </div>
+            <div class="d-flex mbot-10">
+                <div class="label">
+                    <label for="">Address</label>
+                </div>
+                <input type="text" id="address" value="" placeholder>
+            </div>
+            <div class="d-flex mbot-10">
+                <div class="label">
+                    <label for="">Gender</label>
+                </div>
+                <div class="gender-option d-flex">
+                    <input type="radio" name="gender" id="male" value="M" placeholder>Male
+                    <input type="radio" name="gender" id="female" value="F" placeholder>Female
+                </div>                
+            </div>
+
+            <div id="male-div" style="display:none;">
+                <p>You chose as Male</p>
+            </div>
+            <div id="female-div" style="display:none;">
+                <p>You chose as Female</p>
+            </div>  
+
+            <button type="button" id="submit-btn">Add</button>
+        </form>
+    </div>
+
+    <script>
+        let submitBtn = document.getElementById("submit-btn");
+
+        let usernameElement = document.getElementById("username");
+        let passwordElement = document.getElementById("password");
+        let addressElement = document.getElementById("address");
+
+        let maleElementRadio = document.getElementById("male");
+        let femaleElementRadio = document.getElementById("female");
+
+        let maleDivElement = document.getElementById("male-div");
+        let femaleDivElement = document.getElementById("female-div");
+
+     
+        // add events for Button
+        submitBtn.addEventListener("click", function(){  
+
+            if (usernameElement.value.length < 6) {
+                usernameElement.style.backgroundColor = "red";
+
+                // thêm alert khi nhập dưới 6 kí tự, tạo thẻ p chứa thông báo rồi appendChild vô trong div
+                let pElement = document.createElement("p");
+                pElement.innerHTML = "Please enter your username > 6 character";
+                pElement.style.color = "red";
+                console.log(pElement);
+
+                usernameElement.parentElement.appendChild(pElement);
+            }
+        })
+
+        usernameElement.onkeyup = function() {
+            usernameElement.style.backgroundColor ="white";
+            usernameElement.style.color = "black";
+
+            if (usernameElement.value.length >=6) {
+                usernameElement.style.backgroundColor = "green";
+                usernameElement.style.color = "white";
+                if (usernameElement.nextSibling){
+                    usernameElement.parentElement.removeChild(usernameElement.nextSibling);
+                }                
+            }
+        }
+
+        // show div khi chọn Male hoặc Female, add sự kiện khi chọn option radio
+        maleElementRadio.onchange = function() {
+            if (this.checked) {
+                maleDivElement.style.display = "block";
+                femaleDivElement.style.display = "none";
+            }
+        }
+
+        femaleElementRadio.onchange = function() {
+            if (this.checked) {
+                maleDivElement.style.display = "none";
+                femaleDivElement.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
